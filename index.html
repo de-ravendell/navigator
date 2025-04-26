@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HYPERLINK PRODUCER</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0f8ff;
+            border-radius: 4px;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <h2>HYPERLINK PRODUCER</h2>
+    <input type="url" id="url" placeholder="URL" required>
+    <button onclick="navigateToUrl()">GO TO LINK</button>
+    
+    <div id="result" style="display: none;">
+        <p>Invalid URL. Please try again.</p>
+    </div>
+
+    <script>
+        function navigateToUrl() {
+            let urlInput = document.getElementById('url').value.trim();
+            
+            if (!urlInput) {
+                document.getElementById('result').style.display = 'block';
+                document.getElementById('result').innerHTML = '<p>Please input an URL</p>';
+                return;
+            }
+            
+            try {
+                if (!urlInput.startsWith('http://') && !urlInput.startsWith('https://')) {
+                    urlInput = 'https://' + urlInput;
+                }
+                
+                new URL(urlInput);
+                window.location.href = urlInput;
+            } catch (e) {
+                document.getElementById('result').style.display = 'block';
+                document.getElementById('result').innerHTML = '<p>Please enter a valid URL</p>';
+            }
+        }
+        
+        document.getElementById('url').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                navigateToUrl();
+            }
+        });
+    </script>
+
+    <div style="text-align: center; margin-bottom: 12px;">
+        <a href="https://de-ravendell.github.io/main" style="color: gray; text-decoration: none; background: none;">-------De Ravendell-------</a>
+    </div>
+</body>
+</html>
