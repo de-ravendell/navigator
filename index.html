@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HYPERLINK NAVIGATOR</title>
+    <title>NAVIGATOR</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -38,9 +38,9 @@
     </style>
 </head>
 <body>
-    <h2>HYPERLINK NAVIGATOR</h2>
-    <input type="url" id="url" placeholder="URL" required>
-    <button onclick="navigateToUrl()">GO TO LINK</button>
+    <h2>NAVIGATOR</h2>
+    <input type="text" id="url" placeholder="Enter URL or search terms" required>
+    <button onclick="navigateToUrl()">GO</button>
     
     <div id="result" style="display: none;">
         <p>Invalid URL. Please try again.</p>
@@ -48,24 +48,44 @@
 
     <script>
         function navigateToUrl() {
-            let urlInput = document.getElementById('url').value.trim();
+            let input = document.getElementById('url').value.trim();
             
-            if (!urlInput) {
+            if (!input) {
                 document.getElementById('result').style.display = 'block';
-                document.getElementById('result').innerHTML = '<p>Please input an URL</p>';
+                document.getElementById('result').innerHTML = '<p>Please enter something to search or navigate to</p>';
                 return;
             }
             
+            // Check if input looks like a domain (contains .com, .net, etc.)
+            const domainPattern = /\.(com|net|org|io|gov|edu|co|uk|de|fr|info|biz|xyz|me|tv|cc|ca|au|nz|jp|cn|in|br|ru|us|mx|es|it|ch|se|nl|be|at|dk|fi|no|pl|pt|ro|tr|gr|hu|sk|cz|sg|hk|my|id|ph|vn|th|kr|ae|sa|il|ir|za|ar|cl|pe|co\.uk|org\.uk|ac\.uk|gov\.uk)(\/|$|\?|#)/i;
+            
             try {
-                if (!urlInput.startsWith('http://') && !urlInput.startsWith('https://')) {
-                    urlInput = 'https://' + urlInput;
+                // If it already has http:// or https://, treat as URL
+                if (input.startsWith('http://') || input.startsWith('https://')) {
+                    new URL(input);
+                    window.location.href = input;
+                    return;
                 }
                 
-                new URL(urlInput);
-                window.location.href = urlInput;
+                // If it contains a domain pattern, treat as URL
+                if (domainPattern.test(input)) {
+                    // Add https:// if not present
+                    if (!input.startsWith('http://') && !input.startsWith('https://')) {
+                        input = 'https://' + input;
+                    }
+                    new URL(input);
+                    window.location.href = input;
+                    return;
+                }
+                
+                // If we get here, treat as search terms
+                const searchUrl = `https://www.bing.com/search?q=${encodeURIComponent(input)}`;
+                window.location.href = searchUrl;
+                
             } catch (e) {
-                document.getElementById('result').style.display = 'block';
-                document.getElementById('result').innerHTML = '<p>Please enter a valid URL</p>';
+                // If URL construction failed, fall back to search
+                const searchUrl = `https://www.bing.com/search?q=${encodeURIComponent(input)}`;
+                window.location.href = searchUrl;
             }
         }
         
