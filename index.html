@@ -51,7 +51,8 @@
             let input = document.getElementById('url').value.trim();
             
             if (!input) {
-                window.open(`https://www.bing.com`, target="_blank");
+                const url = `https://www.bing.com`;
+                window.open(url, target="_blank");
                 return;
             }
             
