@@ -51,8 +51,7 @@
             let input = document.getElementById('url').value.trim();
             
             if (!input) {
-                document.getElementById('result').style.display = 'block';
-                document.getElementById('result').innerHTML = '<p>Please enter something to search or navigate to</p>';
+                window.open(`https://www.bing.com`, target="_blank”);
                 return;
             }
             
