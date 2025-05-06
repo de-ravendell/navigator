@@ -63,7 +63,7 @@
                 // If it already has http:// or https://, treat as URL
                 if (input.startsWith('http://') || input.startsWith('https://')) {
                     new URL(input);
-                    window.location.href = input;
+                    window.open(input, '_blank');
                     return;
                 }
                 
@@ -74,18 +74,18 @@
                         input = 'https://' + input;
                     }
                     new URL(input);
-                    window.location.href = input;
+                    window.open(input, '_blank');
                     return;
                 }
                 
                 // If we get here, treat as search terms
                 const searchUrl = `https://search.brave.com/search?q=${encodeURIComponent(input)}`;
-                window.location.href = searchUrl;
+                window.open(searchUrl, '_blank');
                 
             } catch (e) {
                 // If URL construction failed, fall back to search
                 const searchUrl = `https://search.brave.com/search?q=${encodeURIComponent(input)}`;
-                window.location.href = searchUrl;
+                window.open(searchUrl, '_blank');
             }
         }
         
