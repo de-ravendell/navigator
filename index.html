@@ -79,12 +79,12 @@
                 }
                 
                 // If we get here, treat as search terms
-                const searchUrl = `https://search.brave.com/search?q=${encodeURIComponent(input)}`;
+                const searchUrl = `https://www.baidu.com/search?q=${encodeURIComponent(input)}`;
                 window.open(searchUrl, '_blank');
                 
             } catch (e) {
                 // If URL construction failed, fall back to search
-                const searchUrl = `https://search.brave.com/search?q=${encodeURIComponent(input)}`;
+                const searchUrl = `https://www.baidu.com/search?q=${encodeURIComponent(input)}`;
                 window.open(searchUrl, '_blank');
             }
         }
