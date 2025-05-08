@@ -57,7 +57,7 @@
             }
             
             // Check if input looks like a domain (contains .com, .net, etc.)
-            const domainPattern = /\.(com|net|org|io|gov|edu|co|uk|de|fr|info|biz|xyz|me|tv|cc|ca|au|nz|jp|cn|in|br|ru|us|mx|es|it|ch|se|nl|be|at|dk|fi|no|pl|pt|ro|tr|gr|hu|sk|cz|sg|hk|my|id|ph|vn|th|kr|ae|sa|il|ir|za|ar|cl|pe|ms|co\.uk|org\.uk|ac\.uk|gov\.uk)(\/|$|\?|#)/i;
+            const domainPattern = /\.(com|net|org|io|gov|edu|co|uk|de|fr|info|biz|xyz|me|tv|cc|ca|au|nz|jp|cn|in|br|ru|us|mx|es|it|ch|se|nl|be|at|dk|fi|no|pl|pt|ro|tr|gr|hu|sk|cz|sg|hk|my|id|ph|vn|th|kr|ae|sa|il|ir|za|ar|cl|pe|ms|one|co\.uk|org\.uk|ac\.uk|gov\.uk)(\/|$|\?|#)/i;
             
             try {
                 // If it already has http:// or https://, treat as URL
@@ -68,7 +68,7 @@
                 }
                 
                 // If it contains a domain pattern, treat as URL
-                if (domainPattern.test(input)) {
+                if (domainPattern.test(input) &&!(input.includes(" "))) {
                     // Add https:// if not present
                     if (!input.startsWith('http://') && !input.startsWith('https://')) {
                         input = 'https://' + input;
